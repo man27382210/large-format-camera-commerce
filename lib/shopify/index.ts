@@ -6,9 +6,9 @@ import {
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
 import {
-  revalidateTag,
+  unstable_cacheLife as cacheLife,
   unstable_cacheTag as cacheTag,
-  unstable_cacheLife as cacheLife
+  revalidateTag
 } from 'next/cache';
 import { cookies, headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -57,6 +57,9 @@ import {
   ShopifyRemoveFromCartOperation,
   ShopifyUpdateCartOperation
 } from './types';
+const USE_MOCK = process.env.MOCK_SHOPIFY === '1' || process.env.MOCK_SHOPIFY === 'true';
+// Lazy import to avoid including mock in serverless bundle unless needed
+const mock = USE_MOCK ? require('./mock') : null;
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
@@ -214,10 +217,12 @@ const reshapeProducts = (products: ShopifyProduct[]) => {
 };
 
 export async function createCart(): Promise<Cart> {
+  if (USE_MOCK) {
+    return mock.createCart();
+  }
   const res = await shopifyFetch<ShopifyCreateCartOperation>({
     query: createCartMutation
   });
-
   return reshapeCart(res.body.data.cartCreate.cart);
 }
 
@@ -225,6 +230,9 @@ export async function addToCart(
   lines: { merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
   const cartId = (await cookies()).get('cartId')?.value!;
+  if (USE_MOCK) {
+    return mock.addToCart(cartId, lines);
+  }
   const res = await shopifyFetch<ShopifyAddToCartOperation>({
     query: addToCartMutation,
     variables: {
@@ -237,6 +245,9 @@ export async function addToCart(
 
 export async function removeFromCart(lineIds: string[]): Promise<Cart> {
   const cartId = (await cookies()).get('cartId')?.value!;
+  if (USE_MOCK) {
+    return mock.removeFromCart(cartId, lineIds);
+  }
   const res = await shopifyFetch<ShopifyRemoveFromCartOperation>({
     query: removeFromCartMutation,
     variables: {
@@ -252,6 +263,9 @@ export async function updateCart(
   lines: { id: string; merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
   const cartId = (await cookies()).get('cartId')?.value!;
+  if (USE_MOCK) {
+    return mock.updateCart(cartId, lines);
+  }
   const res = await shopifyFetch<ShopifyUpdateCartOperation>({
     query: editCartItemsMutation,
     variables: {
@@ -269,7 +283,9 @@ export async function getCart(): Promise<Cart | undefined> {
   if (!cartId) {
     return undefined;
   }
-
+  if (USE_MOCK) {
+    return mock.getCart(cartId);
+  }
   const res = await shopifyFetch<ShopifyCartOperation>({
     query: getCartQuery,
     variables: { cartId }
@@ -289,7 +305,9 @@ export async function getCollection(
   'use cache';
   cacheTag(TAGS.collections);
   cacheLife('days');
-
+  if (USE_MOCK) {
+    return mock.getCollection(handle);
+  }
   const res = await shopifyFetch<ShopifyCollectionOperation>({
     query: getCollectionQuery,
     variables: {
@@ -312,7 +330,9 @@ export async function getCollectionProducts({
   'use cache';
   cacheTag(TAGS.collections, TAGS.products);
   cacheLife('days');
-
+  if (USE_MOCK) {
+    return mock.getCollectionProducts({ collection, reverse, sortKey });
+  }
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
     variables: {
@@ -336,7 +356,9 @@ export async function getCollections(): Promise<Collection[]> {
   'use cache';
   cacheTag(TAGS.collections);
   cacheLife('days');
-
+  if (USE_MOCK) {
+    return mock.getCollections();
+  }
   const res = await shopifyFetch<ShopifyCollectionsOperation>({
     query: getCollectionsQuery
   });
@@ -367,7 +389,9 @@ export async function getMenu(handle: string): Promise<Menu[]> {
   'use cache';
   cacheTag(TAGS.collections);
   cacheLife('days');
-
+  if (USE_MOCK) {
+    return mock.getMenu(handle);
+  }
   const res = await shopifyFetch<ShopifyMenuOperation>({
     query: getMenuQuery,
     variables: {
@@ -387,6 +411,9 @@ export async function getMenu(handle: string): Promise<Menu[]> {
 }
 
 export async function getPage(handle: string): Promise<Page> {
+  if (USE_MOCK) {
+    return mock.getPage(handle);
+  }
   const res = await shopifyFetch<ShopifyPageOperation>({
     query: getPageQuery,
     variables: { handle }
@@ -396,6 +423,9 @@ export async function getPage(handle: string): Promise<Page> {
 }
 
 export async function getPages(): Promise<Page[]> {
+  if (USE_MOCK) {
+    return mock.getPages();
+  }
   const res = await shopifyFetch<ShopifyPagesOperation>({
     query: getPagesQuery
   });
@@ -407,7 +437,9 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
   'use cache';
   cacheTag(TAGS.products);
   cacheLife('days');
-
+  if (USE_MOCK) {
+    return mock.getProduct(handle);
+  }
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
     variables: {
@@ -424,7 +456,9 @@ export async function getProductRecommendations(
   'use cache';
   cacheTag(TAGS.products);
   cacheLife('days');
-
+  if (USE_MOCK) {
+    return mock.getProductRecommendations(productId);
+  }
   const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
     variables: {
@@ -447,7 +481,9 @@ export async function getProducts({
   'use cache';
   cacheTag(TAGS.products);
   cacheLife('days');
-
+  if (USE_MOCK) {
+    return mock.getProducts({ query, reverse, sortKey });
+  }
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
     variables: {
@@ -462,6 +498,9 @@ export async function getProducts({
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.
 export async function revalidate(req: NextRequest): Promise<NextResponse> {
+  if (USE_MOCK) {
+    return mock.revalidate();
+  }
   // We always need to respond with a 200 status code to Shopify,
   // otherwise it will continue to retry the request.
   const collectionWebhooks = [

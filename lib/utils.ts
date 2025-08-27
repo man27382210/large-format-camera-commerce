@@ -20,6 +20,10 @@ export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
     : `${startsWith}${stringToCheck}`;
 
 export const validateEnvironmentVariables = () => {
+  if (process.env.MOCK_SHOPIFY === '1' || process.env.MOCK_SHOPIFY === 'true') {
+    // Skip env validation in mock mode to run without any ecommerce provider
+    return;
+  }
   const requiredEnvironmentVariables = [
     'SHOPIFY_STORE_DOMAIN',
     'SHOPIFY_STOREFRONT_ACCESS_TOKEN'
