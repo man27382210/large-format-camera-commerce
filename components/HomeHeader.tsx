@@ -1,6 +1,14 @@
-import Link from 'next/link'
+'use client';
+import Link from 'next/link';
+import { useState } from 'react';
 
 export default function HomeHeader() {
+  const [isListOpen, setIsListOpen] = useState({
+    academy: false,
+    study: false,
+    faculty: false,
+    facilities: false,
+  });
   return (
     <>
       <div className="absolute top-0 left-0 w-full flex justify-center z-[9999]">
@@ -12,27 +20,27 @@ export default function HomeHeader() {
         </Link>
       </div>
       <header className="relative">
-        <div className="fixed top-0 left-0 w-full h-[60px] md:h-[72px] z-50 bg-white/50 backdrop-blur">
+        {/* <div className="fixed top-0 left-0 w-full h-[60px] md:h-[72px] z-50 bg-white/50 backdrop-blur">
           <div className="px-2.5 md:px-10 relative">
             <Link href="/" className="inline-block h-10 w-48 absolute right-10 top-5" aria-label="Homepage"></Link>
-            {/* <ul className="hidden md:flex text-brand-muted mt-[90px] gap-2">
+            <ul className="hidden md:flex text-brand-muted mt-[90px] gap-2">
               <li>
                 <Link href="/de">De</Link>
               </li>
               <li>
                 <Link href="/search">Search</Link>
               </li>
-            </ul> */}
+            </ul>
             <span className="md:hidden absolute right-2.5 top-2.5 w-6 h-6 rounded bg-brand-paper js-toggle-mobile-menu" role="button" aria-expanded="false" tabIndex={0} aria-label="行動選單按鈕"></span>
           </div>
-        </div>
+        </div> */}
         <div className="px-2.5 md:px-10 pt-8 relative">
-          <ul role="menubar" className="pb-5 w-full" aria-label="主選單">
+          <ul role="menubar" className="pb-5 w-full list-none" aria-label="主選單">
             <li className="">
-              <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false">
+              <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false" onClick={() => setIsListOpen({ ...isListOpen, academy: !isListOpen.academy })}>
                 攝影學院
               </span>
-              <ul className="inline-block ml-2 align-middle" role="list">
+              <ul className={`inline-block ml-2 align-middle ${isListOpen.academy ? 'visible' : 'invisible'}`} role="list">
                 <li className="inline-block mr-2">
                   <Link href="/academy/history" role="listitem">歷史沿革</Link>
                 </li>
@@ -48,10 +56,10 @@ export default function HomeHeader() {
               </ul>
             </li>
             <li className="">
-              <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false">
+              <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false" onClick={() => setIsListOpen({ ...isListOpen, study: !isListOpen.study })}>
                 攝影教學
               </span>
-              <ul className="inline-block ml-2 align-middle" role="list">
+              <ul className={`inline-block ml-2 align-middle ${isListOpen.study ? 'visible' : 'invisible'}`} role="list">
                 <li className="inline-block mr-2">
                   <Link href="/study/fundamentals" role="listitem">基礎課程</Link>
                 </li>
@@ -73,10 +81,10 @@ export default function HomeHeader() {
               </ul>
             </li>
             <li className="">
-              <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false">
+              <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false" onClick={() => setIsListOpen({ ...isListOpen, faculty: !isListOpen.faculty })}>
                 師資團隊
               </span>
-              <ul className="inline-block ml-2 align-middle" role="list">
+              <ul className={`inline-block ml-2 align-middle ${isListOpen.faculty ? 'visible' : 'invisible'}`} role="list">
                 <li className="inline-block mr-2">
                   <Link href="/faculty/masters" role="listitem">資深攝影師</Link>
                 </li>
@@ -89,10 +97,10 @@ export default function HomeHeader() {
               </ul>
             </li>
             <li className="">
-              <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false">
+              <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false" onClick={() => setIsListOpen({ ...isListOpen, facilities: !isListOpen.facilities })}>
                 設備器材
               </span>
-              <ul className="inline-block ml-2 align-middle" role="list">
+              <ul className={`inline-block ml-2 align-middle ${isListOpen.facilities ? 'visible' : 'invisible'}`} role="list">
                 <li className="inline-block mr-2">
                   <Link href="/facilities/cameras" role="listitem">大片幅相機</Link>
                 </li>

@@ -3,8 +3,8 @@ import Link from 'next/link'
 export default function HomeFooter() {
   return (
     <footer>
-      <div className="font-sans text-base leading-[18px] px-2.5 md:px-10 pt-4 pb-4 relative" id="target_footer">
-        <div className="md:flex float-left">
+      <div className="font-sans text-base leading-[18px] px-2.5 md:px-10 pt-4 pb-4 mb-4" id="target_footer">
+        <div className="md:flex">
           <div className="flex flex-col justify-between">
             <div className="">
 大片幅攝影教學與銷售平台
