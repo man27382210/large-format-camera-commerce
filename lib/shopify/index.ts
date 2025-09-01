@@ -63,9 +63,9 @@ const mock = USE_MOCK ? require('./mock') : null;
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
-  : '';
+  : 'https://mock-store.myshopify.com';
 const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
-const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
+const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || 'mock-access-token';
 
 type ExtractVariables<T> = T extends { variables: object }
   ? T['variables']
@@ -80,6 +80,11 @@ export async function shopifyFetch<T>({
   query: string;
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
+  // If using mocks, this function should not be called
+  if (USE_MOCK) {
+    throw new Error('shopifyFetch should not be called when using mocks');
+  }
+  
   try {
     const result = await fetch(endpoint, {
       method: 'POST',
@@ -110,13 +115,14 @@ export async function shopifyFetch<T>({
         cause: e.cause?.toString() || 'unknown',
         status: e.status || 500,
         message: e.message,
-        query
+        ...(process.env.NODE_ENV === 'development' && { query })
       };
     }
 
     throw {
       error: e,
-      query
+      message: e instanceof Error ? e.message : 'Unknown error',
+      ...(process.env.NODE_ENV === 'development' && { query })
     };
   }
 }
@@ -410,7 +416,7 @@ export async function getMenu(handle: string): Promise<Menu[]> {
   );
 }
 
-export async function getPage(handle: string): Promise<Page> {
+export async function getPage(handle: string): Promise<Page | null> {
   if (USE_MOCK) {
     return mock.getPage(handle);
   }

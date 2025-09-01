@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server';
 import {
-    Cart,
-    CartItem,
-    Collection,
-    Image,
-    Menu,
-    Money,
-    Page,
-    Product,
-    ProductVariant
+  Cart,
+  CartItem,
+  Collection,
+  Image,
+  Menu,
+  Money,
+  Page,
+  Product,
+  ProductVariant
 } from './types';
 
 // In-memory mock database. This avoids any external ecommerce provider.
@@ -172,13 +172,13 @@ const mockCollections: Collection[] = [
 
 const collectionItems: Record<string, Product[]> = {
   'hidden-homepage-featured-items': [
-    mockProducts[0],
-    mockProducts[1],
-    mockProducts[2]
+    // mockProducts[0],
+    // mockProducts[1],
+    // mockProducts[2]
   ],
   'hidden-homepage-carousel': [
-    mockProducts[1],
-    mockProducts[2]
+    // mockProducts[1],
+    // mockProducts[2]
   ]
 };
 
@@ -241,8 +241,11 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
 const findVariant = (merchandiseId: string): { product: MockProduct; variant: MockVariant } | undefined => {
   const product = productByVariantId.get(merchandiseId);
   if (!product) return undefined;
-  const variant = product.variants.find((v) => v.id === merchandiseId)!;
-  return { product, variant };
+  const variant = product.variants.find((v) => v.id === merchandiseId);
+  if (!variant) return undefined;
+  // Attach productId to variant to satisfy MockVariant type
+  const mockVariant = { ...variant, productId: product.id };
+  return { product, variant: mockVariant };
 };
 
 export async function addToCart(
@@ -348,8 +351,11 @@ export async function getMenu(_handle: string): Promise<Menu[]> {
   return mockMenu;
 }
 
-export async function getPage(handle: string): Promise<Page> {
-  const page = mockPages.find((p) => p.handle === handle) || mockPages[0];
+export async function getPage(handle: string): Promise<Page | null> {
+  const page = mockPages.find((p) => p.handle === handle);
+  if (!page) {
+    return null;
+  }
   return page;
 }
 

@@ -24,6 +24,7 @@ export async function addItem(
     await addToCart([{ merchandiseId: selectedVariantId, quantity: 1 }]);
     revalidateTag(TAGS.cart);
   } catch (e) {
+    console.error('Error adding item to cart:', e instanceof Error ? e.message : 'Unknown error');
     return 'Error adding item to cart';
   }
 }
@@ -47,6 +48,7 @@ export async function removeItem(prevState: any, merchandiseId: string) {
       return 'Item not found in cart';
     }
   } catch (e) {
+    console.error('Error removing item from cart:', e instanceof Error ? e.message : 'Unknown error');
     return 'Error removing item from cart';
   }
 }
@@ -90,7 +92,7 @@ export async function updateItemQuantity(
 
     revalidateTag(TAGS.cart);
   } catch (e) {
-    console.error(e);
+    console.error('Error updating item quantity:', e instanceof Error ? e.message : 'Unknown error');
     return 'Error updating item quantity';
   }
 }

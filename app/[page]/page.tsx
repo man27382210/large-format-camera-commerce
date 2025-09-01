@@ -1,8 +1,15 @@
 import type { Metadata } from 'next';
 
 import Prose from 'components/prose';
-import { getPage } from 'lib/shopify';
+import { getPage, getPages } from 'lib/shopify';
 import { notFound } from 'next/navigation';
+
+export async function generateStaticParams() {
+  const pages = await getPages();
+  return pages.map((page) => ({
+    page: page.handle,
+  }));
+}
 
 export async function generateMetadata(props: {
   params: Promise<{ page: string }>;
