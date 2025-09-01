@@ -7,43 +7,43 @@ export default function HomeFooter() {
         <div className="md:flex float-left">
           <div className="flex flex-col justify-between">
             <div className="">
-              Kunstakademie Düsseldorf
+大片幅攝影教學與銷售平台
               <br />
-              Eiskellerstraße 1
+              台灣台北市
               <br />
-              40213 Düsseldorf
+              攝影大道123號
             </div>
             <div className="md:hidden mt-5">
-              Tel +49 (0)211 1396-0
+電話 +886-2-1234-5678
               <br />
-              Fax +49 (0)211 1396-255
+              傳真 +886-2-1234-5679
             </div>
-            <div className="hidden md:block">© 2025 Kunstakademie Düsseldorf</div>
+            <div className="hidden md:block">© 2025 大片幅攝影教學與銷售平台</div>
           </div>
           <div className="flex flex-col justify-between md:ml-[70px]">
             <div className="space-y-1">
-              <Link href="/contact">Contact</Link>
+              <Link href="/contact">聯絡我們</Link>
               <br />
-              <Link href="/impressum">Impressum</Link>
+              <Link href="/about">關於我們</Link>
               <br />
-              <Link href="/datenschutz">Datenschutzinformation</Link>
+              <Link href="/privacy">隱私政策</Link>
               <br />
-              <Link href="/barrierefreiheit">Barrierefreiheit</Link>
+              <Link href="/accessibility">無障礙服務</Link>
               <br />
               <br className="hidden md:block" />
               <br className="hidden md:block" />
-              <Link href="/freunde-foerderer">Freunde & Förderer</Link>
+              <Link href="/partners">合作夥伴</Link>
               <br />
-              <Link href="/stellenanzeigen">Stellenanzeigen</Link>
+              <Link href="/careers">加入我們</Link>
               <br />
-              <Link href="/presse">Presse</Link>
+              <Link href="/news">最新消息</Link>
               <br />
-              <Link href="/amtliche-mitteilungen">Amtliche Mitteilungen</Link>
+              <Link href="/announcements">公告事項</Link>
               <br />
             </div>
           </div>
         </div>
-        <div className="md:hidden mt-9">© 2025 Kunstakademie Düsseldorf</div>
+        <div className="md:hidden mt-9">© 2025 大片幅攝影教學與銷售平台</div>
         <div className="absolute right-[30px] bottom-5 w-[144px] h-[144px]"></div>
       </div>
     </footer>

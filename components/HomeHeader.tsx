@@ -5,10 +5,10 @@ export default function HomeHeader() {
     <>
       <div className="absolute top-0 left-0 w-full flex justify-center z-[9999]">
         <Link href="#target_content" className="sr-only focus:not-sr-only absolute top-0 left-1/2 -translate-x-1/2 bg-black text-white px-3 py-2" title="skip links">
-          jump to page content
+          跳至頁面內容
         </Link>
         <Link href="#target_footer" className="sr-only focus:not-sr-only absolute top-0 left-1/2 -translate-x-1/2 bg-black text-white px-3 py-2" title="skip links">
-          jump to footer
+          跳至頁尾
         </Link>
       </div>
       <header className="relative">
@@ -23,97 +23,97 @@ export default function HomeHeader() {
                 <Link href="/search">Search</Link>
               </li>
             </ul> */}
-            <span className="md:hidden absolute right-2.5 top-2.5 w-6 h-6 rounded bg-brand-paper js-toggle-mobile-menu" role="button" aria-expanded="false" tabIndex={0} aria-label="button mobile menu"></span>
+            <span className="md:hidden absolute right-2.5 top-2.5 w-6 h-6 rounded bg-brand-paper js-toggle-mobile-menu" role="button" aria-expanded="false" tabIndex={0} aria-label="行動選單按鈕"></span>
           </div>
         </div>
         <div className="px-2.5 md:px-10 pt-8 relative">
-          <ul role="menubar" className="pb-5 w-full" aria-label="Menü">
+          <ul role="menubar" className="pb-5 w-full" aria-label="主選單">
             <li className="">
               <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false">
-                Academy
+                攝影學院
               </span>
               <ul className="inline-block ml-2 align-middle" role="list">
                 <li className="inline-block mr-2">
-                  <Link href="/academy/history" role="listitem">History</Link>
+                  <Link href="/academy/history" role="listitem">歷史沿革</Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/academy/organization" role="listitem">Organization</Link>
+                  <Link href="/academy/organization" role="listitem">組織架構</Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/academy/rundgang" role="listitem">Rundgang</Link>
+                  <Link href="/academy/gallery" role="listitem">作品展覽</Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/academy/250-jahre-kunstakademie" role="listitem">250 Jahre Kunstakademie</Link>
+                  <Link href="/academy/about" role="listitem">關於學院</Link>
                 </li>
               </ul>
             </li>
             <li className="">
               <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false">
-                Study
+                攝影教學
               </span>
               <ul className="inline-block ml-2 align-middle" role="list">
                 <li className="inline-block mr-2">
-                  <Link href="/study/fine-arts" role="listitem">Fine Arts</Link>
+                  <Link href="/study/fundamentals" role="listitem">基礎課程</Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/study/art-education" role="listitem">Art Education</Link>
+                  <Link href="/study/advanced" role="listitem">進階課程</Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/study/architecture" role="listitem">Architecture</Link>
+                  <Link href="/study/techniques" role="listitem">技法教學</Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/study/orientierungsbereich" role="listitem">Orientierungsbereich</Link>
+                  <Link href="/study/darkroom" role="listitem">暗房技術</Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/study/application" role="listitem">study application</Link>
+                  <Link href="/study/enrollment" role="listitem">報名申請</Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/study/weitere-informationen" role="listitem">Weitere Informationen</Link>
+                  <Link href="/study/info" role="listitem">更多資訊</Link>
                 </li>
               </ul>
             </li>
             <li className="">
               <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false">
-                Faculty
+                師資團隊
               </span>
               <ul className="inline-block ml-2 align-middle" role="list">
                 <li className="inline-block mr-2">
-                  <Link href="/faculty/dp1-art" role="listitem">DP1 Art</Link>
+                  <Link href="/faculty/masters" role="listitem">資深攝影師</Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/faculty/dp1-architecture" role="listitem">DP1 Architecture</Link>
+                  <Link href="/faculty/instructors" role="listitem">專業講師</Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/faculty/dp2-art-related-sciences" role="listitem">DP2 Art-related Sciences</Link>
+                  <Link href="/faculty/guest-artists" role="listitem">客座藝術家</Link>
                 </li>
               </ul>
             </li>
             <li className="">
               <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false">
-                Facilities
+                設備器材
               </span>
               <ul className="inline-block ml-2 align-middle" role="list">
                 <li className="inline-block mr-2">
-                  <Link href="/facilities/workshops" role="listitem">Workshops</Link>
+                  <Link href="/facilities/cameras" role="listitem">大片幅相機</Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/facilities/library" role="listitem">Library</Link>
+                  <Link href="/facilities/lenses" role="listitem">鏡頭系統</Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/facilities/archive" role="listitem">Archive</Link>
+                  <Link href="/facilities/accessories" role="listitem">配件用品</Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/facilities/media-library" role="listitem">Media Library</Link>
+                  <Link href="/facilities/darkroom" role="listitem">暗房設備</Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/facilities/akademie-galerie" role="listitem">Akademie-Galerie</Link>
+                  <Link href="/facilities/studio" role="listitem">攝影棚</Link>
                 </li>
               </ul>
             </li>
           </ul>
           <ul className="md:hidden fixed right-2.5 bottom-4 text-right text-base">
             <li className="">
-              <Link href="/search">Search</Link>
+              <Link href="/search">搜尋</Link>
             </li>
           </ul>
         </div>
