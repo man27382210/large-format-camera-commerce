@@ -34,7 +34,7 @@ export default function HomeHeader() {
             <span className="md:hidden absolute right-2.5 top-2.5 w-6 h-6 rounded bg-brand-paper js-toggle-mobile-menu" role="button" aria-expanded="false" tabIndex={0} aria-label="行動選單按鈕"></span>
           </div>
         </div> */}
-        <div className="px-2.5 md:px-10 pt-8 relative">
+        <div className="px-2.5 md:px-10 pt-8">
           <ul role="menubar" className="pb-5 w-full list-none" aria-label="主選單">
             <li className="">
               <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false" onClick={() => setIsListOpen({ ...isListOpen, academy: !isListOpen.academy })}>
