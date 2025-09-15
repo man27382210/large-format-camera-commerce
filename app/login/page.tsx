@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import { signIn } from 'next-auth/react';
 import { createUser } from '@/lib/auth-action';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function LoginPage() {
   const [isRegister, setIsRegister] = useState(false);
@@ -16,7 +16,6 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-
     if (isRegister) {
       try {
         await createUser({ name, email, password });
@@ -25,6 +24,7 @@ export default function LoginPage() {
           email,
           password
         });
+        console.log(result);
         if (result?.ok) {
           router.push('/profile');
         } else {
