@@ -1,7 +1,7 @@
 import { auth } from '@/auth';
 import { getUserCourses } from '@/lib/user-actions';
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 // We'll need a function to get a single course's details
 async function getCourseDetails(courseId: string) {
@@ -60,7 +60,7 @@ export default async function CourseWatchPage({
           </div>
           <div className="mt-4">
             <h2 className="text-xl font-semibold">
-              {course.videos[0].title}
+              {course.videos[0]?.title || 'No video available'}
             </h2>
           </div>
         </div>
@@ -69,15 +69,19 @@ export default async function CourseWatchPage({
             Course Content
           </h3>
           <ul className="mt-4 space-y-2">
-            {course.videos.map((video) => (
-              <li key={video.id}>
-                <Link href="#">
-                  <div className="block rounded-md border border-gray-200 p-4 hover:bg-gray-50">
-                    {video.title}
-                  </div>
-                </Link>
-              </li>
-            ))}
+            {course.videos.length > 0 ? (
+              course.videos.map((video) => (
+                <li key={video.id}>
+                  <Link href="#">
+                    <div className="block rounded-md border border-gray-200 p-4 hover:bg-gray-50">
+                      {video.title}
+                    </div>
+                  </Link>
+                </li>
+              ))
+            ) : (
+              <li className="text-gray-500">No videos available</li>
+            )}
           </ul>
         </div>
       </div>

@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { PrismaClient } from '@prisma/client';
+import Link from 'next/link';
 
 const prisma = new PrismaClient();
 
@@ -47,7 +47,7 @@ export default async function HomeMain() {
                       <img
                         src={
                           Array.isArray(product.images)
-                            ? product.images[0]
+                            ? (product.images[0] as string)
                             : '/images/placeholder-camera.jpg'
                         }
                         alt={product.name}

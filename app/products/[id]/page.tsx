@@ -1,10 +1,10 @@
 'use client';
 
-import Link from 'next/link';
 import { useCart } from '@/components/cart/CartContext';
-import { Toaster, toast } from 'sonner';
 import { PrismaClient, Product } from '@prisma/client';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { Toaster, toast } from 'sonner';
 
 const prisma = new PrismaClient();
 
@@ -38,7 +38,7 @@ export default function ProductDetailPage({
       id: product.id,
       name: product.name,
       price: product.price,
-      image: Array.isArray(product.images) ? product.images[0] : undefined,
+      image: Array.isArray(product.images) ? (product.images[0] as string) : undefined,
       type: 'product'
     });
     toast.success(`${product.name} has been added to your cart.`);
@@ -55,7 +55,7 @@ export default function ProductDetailPage({
               <img
                 src={
                   Array.isArray(product.images)
-                    ? product.images[0]
+                    ? (product.images[0] as string)
                     : '/images/placeholder-camera.jpg'
                 }
                 alt={product.name}

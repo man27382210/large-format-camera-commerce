@@ -1,27 +1,25 @@
 'use client'
-import { signInGoogle, signOut } from '@/lib/auth-action'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 export function ConnectForm() {
+  const { data: session } = useSession()
+  
   return (
     <>
         {session?.user ? (
-            <form
-            action={async () => {
-                'use server';
-                await signOut();
-            }}
+            <button 
+              onClick={() => signOut()}
+              className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
             >
-            <button type="submit">Sign Out</button>
-            </form>
+              Sign Out
+            </button>
         ) : (
-            <form
-            action={async () => {
-                'use server';
-                await signInGoogle();
-            }}
+            <button 
+              onClick={() => signIn('google')}
+              className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
             >
-            <button type="submit">Sign in with Google</button>
-            </form>
+              Sign in with Google
+            </button>
         )}
     </>
   )

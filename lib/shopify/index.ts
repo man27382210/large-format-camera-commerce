@@ -1,61 +1,59 @@
 import {
-  HIDDEN_PRODUCT_TAG,
-  SHOPIFY_GRAPHQL_API_ENDPOINT,
-  TAGS
+    HIDDEN_PRODUCT_TAG,
+    SHOPIFY_GRAPHQL_API_ENDPOINT,
+    TAGS
 } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
 import {
-  unstable_cacheLife as cacheLife,
-  unstable_cacheTag as cacheTag,
-  revalidateTag
+    revalidateTag
 } from 'next/cache';
 import { cookies, headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import {
-  addToCartMutation,
-  createCartMutation,
-  editCartItemsMutation,
-  removeFromCartMutation
+    addToCartMutation,
+    createCartMutation,
+    editCartItemsMutation,
+    removeFromCartMutation
 } from './mutations/cart';
 import { getCartQuery } from './queries/cart';
 import {
-  getCollectionProductsQuery,
-  getCollectionQuery,
-  getCollectionsQuery
+    getCollectionProductsQuery,
+    getCollectionQuery,
+    getCollectionsQuery
 } from './queries/collection';
 import { getMenuQuery } from './queries/menu';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
-  getProductQuery,
-  getProductRecommendationsQuery,
-  getProductsQuery
+    getProductQuery,
+    getProductRecommendationsQuery,
+    getProductsQuery
 } from './queries/product';
 import {
-  Cart,
-  Collection,
-  Connection,
-  Image,
-  Menu,
-  Page,
-  Product,
-  ShopifyAddToCartOperation,
-  ShopifyCart,
-  ShopifyCartOperation,
-  ShopifyCollection,
-  ShopifyCollectionOperation,
-  ShopifyCollectionProductsOperation,
-  ShopifyCollectionsOperation,
-  ShopifyCreateCartOperation,
-  ShopifyMenuOperation,
-  ShopifyPageOperation,
-  ShopifyPagesOperation,
-  ShopifyProduct,
-  ShopifyProductOperation,
-  ShopifyProductRecommendationsOperation,
-  ShopifyProductsOperation,
-  ShopifyRemoveFromCartOperation,
-  ShopifyUpdateCartOperation
+    Cart,
+    Collection,
+    Connection,
+    Image,
+    Menu,
+    Page,
+    Product,
+    ShopifyAddToCartOperation,
+    ShopifyCart,
+    ShopifyCartOperation,
+    ShopifyCollection,
+    ShopifyCollectionOperation,
+    ShopifyCollectionProductsOperation,
+    ShopifyCollectionsOperation,
+    ShopifyCreateCartOperation,
+    ShopifyMenuOperation,
+    ShopifyPageOperation,
+    ShopifyPagesOperation,
+    ShopifyProduct,
+    ShopifyProductOperation,
+    ShopifyProductRecommendationsOperation,
+    ShopifyProductsOperation,
+    ShopifyRemoveFromCartOperation,
+    ShopifyUpdateCartOperation
 } from './types';
 const USE_MOCK = process.env.MOCK_SHOPIFY === '1' || process.env.MOCK_SHOPIFY === 'true';
 // Lazy import to avoid including mock in serverless bundle unless needed
@@ -309,8 +307,6 @@ export async function getCollection(
   handle: string
 ): Promise<Collection | undefined> {
   'use cache';
-  cacheTag(TAGS.collections);
-  cacheLife('days');
   if (USE_MOCK) {
     return mock.getCollection(handle);
   }
@@ -334,8 +330,6 @@ export async function getCollectionProducts({
   sortKey?: string;
 }): Promise<Product[]> {
   'use cache';
-  cacheTag(TAGS.collections, TAGS.products);
-  cacheLife('days');
   if (USE_MOCK) {
     return mock.getCollectionProducts({ collection, reverse, sortKey });
   }
@@ -360,8 +354,6 @@ export async function getCollectionProducts({
 
 export async function getCollections(): Promise<Collection[]> {
   'use cache';
-  cacheTag(TAGS.collections);
-  cacheLife('days');
   if (USE_MOCK) {
     return mock.getCollections();
   }
@@ -393,8 +385,6 @@ export async function getCollections(): Promise<Collection[]> {
 
 export async function getMenu(handle: string): Promise<Menu[]> {
   'use cache';
-  cacheTag(TAGS.collections);
-  cacheLife('days');
   if (USE_MOCK) {
     return mock.getMenu(handle);
   }
@@ -441,8 +431,6 @@ export async function getPages(): Promise<Page[]> {
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
   'use cache';
-  cacheTag(TAGS.products);
-  cacheLife('days');
   if (USE_MOCK) {
     return mock.getProduct(handle);
   }
@@ -460,8 +448,6 @@ export async function getProductRecommendations(
   productId: string
 ): Promise<Product[]> {
   'use cache';
-  cacheTag(TAGS.products);
-  cacheLife('days');
   if (USE_MOCK) {
     return mock.getProductRecommendations(productId);
   }
@@ -485,8 +471,6 @@ export async function getProducts({
   sortKey?: string;
 }): Promise<Product[]> {
   'use cache';
-  cacheTag(TAGS.products);
-  cacheLife('days');
   if (USE_MOCK) {
     return mock.getProducts({ query, reverse, sortKey });
   }
