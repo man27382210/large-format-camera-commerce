@@ -7,15 +7,23 @@ export default function HomeHeader() {
     academy: false,
     study: false,
     faculty: false,
-    facilities: false,
+    facilities: false
   });
   return (
     <>
       <div className="absolute top-0 left-0 w-full flex justify-center z-[9999]">
-        <Link href="#target_content" className="sr-only focus:not-sr-only absolute top-0 left-1/2 -translate-x-1/2 bg-black text-white px-3 py-2" title="skip links">
+        <Link
+          href="#target_content"
+          className="sr-only focus:not-sr-only absolute top-0 left-1/2 -translate-x-1/2 bg-black text-white px-3 py-2"
+          title="skip links"
+        >
           跳至頁面內容
         </Link>
-        <Link href="#target_footer" className="sr-only focus:not-sr-only absolute top-0 left-1/2 -translate-x-1/2 bg-black text-white px-3 py-2" title="skip links">
+        <Link
+          href="#target_footer"
+          className="sr-only focus:not-sr-only absolute top-0 left-1/2 -translate-x-1/2 bg-black text-white px-3 py-2"
+          title="skip links"
+        >
           跳至頁尾
         </Link>
       </div>
@@ -37,84 +45,156 @@ export default function HomeHeader() {
         <div className="px-2.5 md:px-10 pt-8">
           <ul role="menubar" className="pb-5 w-full list-none" aria-label="主選單">
             <li className="">
-              <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false" onClick={() => setIsListOpen({ ...isListOpen, academy: !isListOpen.academy })}>
+              <span
+                className="cursor-pointer hover:text-brand-accent js-open-submenu"
+                tabIndex={0}
+                role="button"
+                aria-expanded="false"
+                onClick={() => setIsListOpen({ ...isListOpen, academy: !isListOpen.academy })}
+              >
                 攝影學院
               </span>
-              <ul className={`inline-block ml-2 align-middle ${isListOpen.academy ? 'visible' : 'invisible'}`} role="list">
+              <ul
+                className={`inline-block ml-2 align-middle ${isListOpen.academy ? 'visible' : 'invisible'}`}
+                role="list"
+              >
                 <li className="inline-block mr-2">
-                  <Link href="/academy/history" role="listitem">歷史沿革</Link>
+                  <Link href="/academy/history" role="listitem">
+                    歷史沿革
+                  </Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/academy/organization" role="listitem">組織架構</Link>
+                  <Link href="/academy/organization" role="listitem">
+                    組織架構
+                  </Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/academy/gallery" role="listitem">作品展覽</Link>
+                  <Link href="/academy/gallery" role="listitem">
+                    作品展覽
+                  </Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/academy/about" role="listitem">關於學院</Link>
+                  <Link href="/academy/about" role="listitem">
+                    關於學院
+                  </Link>
                 </li>
               </ul>
             </li>
             <li className="">
-              <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false" onClick={() => setIsListOpen({ ...isListOpen, study: !isListOpen.study })}>
+              <span
+                className="cursor-pointer hover:text-brand-accent js-open-submenu"
+                tabIndex={0}
+                role="button"
+                aria-expanded="false"
+                onClick={() => setIsListOpen({ ...isListOpen, study: !isListOpen.study })}
+              >
                 攝影教學
               </span>
-              <ul className={`inline-block ml-2 align-middle ${isListOpen.study ? 'visible' : 'invisible'}`} role="list">
+              <ul
+                className={`inline-block ml-2 align-middle ${isListOpen.study ? 'visible' : 'invisible'}`}
+                role="list"
+              >
                 <li className="inline-block mr-2">
-                  <Link href="/study/fundamentals" role="listitem">基礎課程</Link>
+                  <Link href="/study/fundamentals" role="listitem">
+                    基礎課程
+                  </Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/study/advanced" role="listitem">進階課程</Link>
+                  <Link href="/study/advanced" role="listitem">
+                    進階課程
+                  </Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/study/techniques" role="listitem">技法教學</Link>
+                  <Link href="/study/techniques" role="listitem">
+                    技法教學
+                  </Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/study/darkroom" role="listitem">暗房技術</Link>
+                  <Link href="/study/darkroom" role="listitem">
+                    暗房技術
+                  </Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/study/enrollment" role="listitem">報名申請</Link>
+                  <Link href="/study/enrollment" role="listitem">
+                    報名申請
+                  </Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/study/info" role="listitem">更多資訊</Link>
+                  <Link href="/study/info" role="listitem">
+                    更多資訊
+                  </Link>
                 </li>
               </ul>
             </li>
             <li className="">
-              <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false" onClick={() => setIsListOpen({ ...isListOpen, faculty: !isListOpen.faculty })}>
+              <span
+                className="cursor-pointer hover:text-brand-accent js-open-submenu"
+                tabIndex={0}
+                role="button"
+                aria-expanded="false"
+                onClick={() => setIsListOpen({ ...isListOpen, faculty: !isListOpen.faculty })}
+              >
                 師資團隊
               </span>
-              <ul className={`inline-block ml-2 align-middle ${isListOpen.faculty ? 'visible' : 'invisible'}`} role="list">
+              <ul
+                className={`inline-block ml-2 align-middle ${isListOpen.faculty ? 'visible' : 'invisible'}`}
+                role="list"
+              >
                 <li className="inline-block mr-2">
-                  <Link href="/faculty/masters" role="listitem">資深攝影師</Link>
+                  <Link href="/faculty/masters" role="listitem">
+                    資深攝影師
+                  </Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/faculty/instructors" role="listitem">專業講師</Link>
+                  <Link href="/faculty/instructors" role="listitem">
+                    專業講師
+                  </Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/faculty/guest-artists" role="listitem">客座藝術家</Link>
+                  <Link href="/faculty/guest-artists" role="listitem">
+                    客座藝術家
+                  </Link>
                 </li>
               </ul>
             </li>
             <li className="">
-              <span className="cursor-pointer hover:text-brand-accent js-open-submenu" tabIndex={0} role="button" aria-expanded="false" onClick={() => setIsListOpen({ ...isListOpen, facilities: !isListOpen.facilities })}>
+              <span
+                className="cursor-pointer hover:text-brand-accent js-open-submenu"
+                tabIndex={0}
+                role="button"
+                aria-expanded="false"
+                onClick={() => setIsListOpen({ ...isListOpen, facilities: !isListOpen.facilities })}
+              >
                 設備器材
               </span>
-              <ul className={`inline-block ml-2 align-middle ${isListOpen.facilities ? 'visible' : 'invisible'}`} role="list">
+              <ul
+                className={`inline-block ml-2 align-middle ${isListOpen.facilities ? 'visible' : 'invisible'}`}
+                role="list"
+              >
                 <li className="inline-block mr-2">
-                  <Link href="/facilities/cameras" role="listitem">大片幅相機</Link>
+                  <Link href="/facilities/cameras" role="listitem">
+                    大片幅相機
+                  </Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/facilities/lenses" role="listitem">鏡頭系統</Link>
+                  <Link href="/facilities/lenses" role="listitem">
+                    鏡頭系統
+                  </Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/facilities/accessories" role="listitem">配件用品</Link>
+                  <Link href="/facilities/accessories" role="listitem">
+                    配件用品
+                  </Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/facilities/darkroom" role="listitem">暗房設備</Link>
+                  <Link href="/facilities/darkroom" role="listitem">
+                    暗房設備
+                  </Link>
                 </li>
                 <li className="inline-block mr-2">
-                  <Link href="/facilities/studio" role="listitem">攝影棚</Link>
+                  <Link href="/facilities/studio" role="listitem">
+                    攝影棚
+                  </Link>
                 </li>
               </ul>
             </li>
@@ -127,7 +207,8 @@ export default function HomeHeader() {
         </div>
       </header>
     </>
-  )
+  );
 }
+
 
 

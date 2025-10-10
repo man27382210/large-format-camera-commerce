@@ -1,20 +1,23 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
 export default function HomeFooter() {
   return (
     <footer>
-      <div className="font-sans text-base leading-[18px] px-2.5 md:px-10 pt-4 pb-4 mb-4" id="target_footer">
+      <div
+        className="font-sans text-base leading-[18px] px-2.5 md:px-10 pt-4 pb-4 mb-4"
+        id="target_footer"
+      >
         <div className="md:flex">
           <div className="flex flex-col justify-between">
             <div className="">
-大片幅攝影教學與銷售平台
+              大片幅攝影教學與銷售平台
               <br />
               台灣台北市
               <br />
               攝影大道123號
             </div>
             <div className="md:hidden mt-5">
-電話 +886-2-1234-5678
+              電話 +886-2-1234-5678
               <br />
               傳真 +886-2-1234-5679
             </div>
@@ -47,5 +50,5 @@ export default function HomeFooter() {
         <div className="absolute right-[30px] bottom-5 w-[144px] h-[144px]"></div>
       </div>
     </footer>
-  )
+  );
 }

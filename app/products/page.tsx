@@ -1,12 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import { getProducts } from '@/lib/product-actions';
 import Link from 'next/link';
-
-const prisma = new PrismaClient();
-
-async function getProducts() {
-  const products = await prisma.product.findMany();
-  return products;
-}
 
 export default async function ProductsPage() {
   const products = await getProducts();

@@ -6,7 +6,8 @@ const prisma = new PrismaClient();
 async function main() {
   // !!! IMPORTANT !!!
   // Add the email addresses of the users you want to make admins to this array
-  const adminEmails = ['man27382210@gmail.com', 'user2@example.com'];
+  // const adminEmails = ['man27382210@gmail.com', 'user2@example.com'];
+  const adminEmails = ['user2@example.com']
 
   for (const email of adminEmails) {
     try {

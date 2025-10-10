@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
 const items = [
   { title: 'Study Fine Arts', href: '/en/studium/179-fine-arts', desc: 'Foundational & advanced artistic studies.' },
@@ -6,8 +6,8 @@ const items = [
   { title: 'Study Architecture', href: '/en/studium/183-architecture', desc: 'Architectural studies, including M.A. track.' },
   { title: 'Study Application', href: '/en/studium/5762-study-application', desc: 'Requirements, portfolio, deadlines.' },
   { title: 'Workshops', href: '/en/einrichtungen/191-workshops', desc: 'Excellent technical facilities, studios & labs.' },
-  { title: 'Library', href: '/en/einrichtungen/205-library', desc: 'Extensive resources for theory & practice.' },
-]
+  { title: 'Library', href: '/en/einrichtungen/205-library', desc: 'Extensive resources for theory & practice.' }
+];
 
 export default function QuickLinks() {
   return (
@@ -24,5 +24,6 @@ export default function QuickLinks() {
         </div>
       </div>
     </section>
-  )
+  );
 }
+

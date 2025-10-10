@@ -1,15 +1,12 @@
-import { PrismaClient } from '@prisma/client';
+import { getCourses } from '@/lib/course-actions';
+import { getProducts } from '@/lib/product-actions';
 import Link from 'next/link';
 
-const prisma = new PrismaClient();
-
 async function getFeaturedData() {
-  const featuredProducts = await prisma.product.findMany({
-    take: 4
-  });
-  const featuredCourses = await prisma.course.findMany({
-    take: 3
-  });
+  const allProducts = await getProducts();
+  const allCourses = await getCourses();
+  const featuredProducts = allProducts.slice(0, 4);
+  const featuredCourses = allCourses.slice(0, 3);
   return { featuredProducts, featuredCourses };
 }
 

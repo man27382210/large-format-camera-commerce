@@ -1,51 +1,15 @@
-'use client';
-
+import AddCourseToCartButton from '@/components/AddCourseToCartButton';
+import { getCourse } from '@/lib/course-actions';
 import Link from 'next/link';
-import { useCart } from '@/components/cart/CartContext';
-import { Toaster, toast } from 'sonner';
-import { PrismaClient, Course, CourseVideo } from '@prisma/client';
-import { useEffect, useState } from 'react';
+import { notFound } from 'next/navigation';
+import { Toaster } from 'sonner';
 
-const prisma = new PrismaClient();
-
-interface CourseWithVideos extends Course {
-  videos: CourseVideo[];
-}
-
-async function getCourse(id: string) {
-  const course = await prisma.course.findUnique({
-    where: { id },
-    include: { videos: { orderBy: { order: 'asc' } } }
-  });
-  return course;
-}
-
-export default function CourseDetailPage({ params }: { params: { id: string } }) {
-  const { addToCart } = useCart();
-  const [course, setCourse] = useState<CourseWithVideos | null>(null);
-
-  useEffect(() => {
-    getCourse(params.id).then(setCourse);
-  }, [params.id]);
+export default async function CourseDetailPage({ params }: { params: { id: string } }) {
+  const course = await getCourse(params.id);
 
   if (!course) {
-    return (
-      <div className="container mx-auto py-12 px-4 text-center">
-        Loading...
-      </div>
-    );
+    notFound();
   }
-
-  const handleAddToCart = () => {
-    addToCart({
-      id: course.id,
-      name: course.title,
-      price: course.price,
-      image: '/images/placeholder-camera.jpg', // Placeholder
-      type: 'course'
-    });
-    toast.success(`${course.title} has been added to your cart.`);
-  };
 
   return (
     <>
@@ -72,43 +36,7 @@ export default function CourseDetailPage({ params }: { params: { id: string } })
 
           {/* Purchase Card & Curriculum */}
           <div>
-            <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-              <p className="text-3xl text-gray-900">
-                ${course.price.toFixed(2)}
-              </p>
-              <button
-                onClick={handleAddToCart}
-                className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Add to cart
-              </button>
-              <div className="mt-8">
-                <h3 className="text-lg font-medium text-gray-900">
-                  Course Curriculum
-                </h3>
-                <ul className="mt-4 space-y-2 text-sm text-gray-600">
-                  {course.videos.map((video) => (
-                    <li key={video.id} className="flex items-start">
-                      <svg
-                        className="h-5 w-5 flex-shrink-0 text-green-500 mr-2"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M5 13l4 4L19 7"
-                        ></path>
-                      </svg>
-                      <span>{video.title}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <AddCourseToCartButton course={course} />
           </div>
         </div>
         <div className="mt-16">

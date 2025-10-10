@@ -1,48 +1,19 @@
-'use client';
-
-import { useCart } from '@/components/cart/CartContext';
-import { PrismaClient, Product } from '@prisma/client';
+import AddToCartButton from '@/components/AddToCartButton';
+import { getProduct } from '@/lib/product-actions';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { Toaster, toast } from 'sonner';
+import { notFound } from 'next/navigation';
+import { Toaster } from 'sonner';
 
-const prisma = new PrismaClient();
-
-async function getProduct(id: string) {
-  const product = await prisma.product.findUnique({ where: { id } });
-  return product;
-}
-
-export default function ProductDetailPage({
+export default async function ProductDetailPage({
   params
 }: {
   params: { id: string };
 }) {
-  const { addToCart } = useCart();
-  const [product, setProduct] = useState<Product | null>(null);
-
-  useEffect(() => {
-    getProduct(params.id).then(setProduct);
-  }, [params.id]);
+  const product = await getProduct(params.id);
 
   if (!product) {
-    return (
-      <div className="container mx-auto py-12 px-4 text-center">
-        Loading...
-      </div>
-    );
+    notFound();
   }
-
-  const handleAddToCart = () => {
-    addToCart({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: Array.isArray(product.images) ? (product.images[0] as string) : undefined,
-      type: 'product'
-    });
-    toast.success(`${product.name} has been added to your cart.`);
-  };
 
   return (
     <>
@@ -80,23 +51,7 @@ export default function ProductDetailPage({
                 dangerouslySetInnerHTML={{ __html: product.description }}
               />
             </div>
-            <div className="mt-10">
-              {product.stock > 0 ? (
-                <button
-                  onClick={handleAddToCart}
-                  className="flex w-full max-w-xs items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  Add to cart
-                </button>
-              ) : (
-                <button
-                  disabled
-                  className="flex w-full max-w-xs items-center justify-center rounded-md border border-transparent bg-gray-400 py-3 px-8 text-base font-medium text-white cursor-not-allowed"
-                >
-                  Out of stock
-                </button>
-              )}
-            </div>
+            <AddToCartButton product={product} />
           </div>
         </div>
         <div className="mt-16">

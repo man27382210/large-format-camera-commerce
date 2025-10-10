@@ -1,12 +1,5 @@
+import { getCourses } from '@/lib/course-actions';
 import Link from 'next/link';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
-async function getCourses() {
-  const courses = await prisma.course.findMany();
-  return courses;
-}
 
 export default async function CoursesPage() {
   const courses = await getCourses();

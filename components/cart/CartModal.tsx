@@ -1,9 +1,9 @@
 'use client';
 
-import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { useCart } from './CartContext';
 import Link from 'next/link';
+import { Fragment } from 'react';
+import { useCart } from './CartContext';
 
 export default function CartModal({
   isOpen,
@@ -138,6 +138,7 @@ export default function CartModal({
                       <div className="mt-6">
                         <Link
                           href="/checkout"
+                          onClick={() => setIsOpen(false)}
                           className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                         >
                           Checkout
